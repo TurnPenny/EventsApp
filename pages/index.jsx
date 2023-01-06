@@ -1,7 +1,8 @@
 import Head from 'next/head';
+import Image from 'next/image';
 import styles from '../styles/Home.module.css';
 
-export default function Home() {
+export default function Home({ data }) {
   return (
     <>
       <Head>
@@ -21,39 +22,20 @@ export default function Home() {
       </header>
 
       <main className={styles.main}>
-        <div>
-          <a href='#'></a>
-          <img src='' alt='' />
-          <h2>Events in London</h2>
-          <p>
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ab,
-            assumenda, nisi maiores explicabo ullam temporibus ut nihil
-            dignissimos distinctio nemo quod quisquam incidunt suscipit
-            accusantium, sint consequuntur quaerat maxime. Natus.
-          </p>
-        </div>
-        <div>
-          <a href='#'></a>
-          <img src='' alt='' />
-          <h2>Events in Canada</h2>
-          <p>
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ab,
-            assumenda, nisi maiores explicabo ullam temporibus ut nihil
-            dignissimos distinctio nemo quod quisquam incidunt suscipit
-            accusantium, sint consequuntur quaerat maxime. Natus.
-          </p>
-        </div>
-        <div>
-          <a href='#'></a>
-          <img src='' alt='' />
-          <h2>Events in China</h2>
-          <p>
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ab,
-            assumenda, nisi maiores explicabo ullam temporibus ut nihil
-            dignissimos distinctio nemo quod quisquam incidunt suscipit
-            accusantium, sint consequuntur quaerat maxime. Natus.
-          </p>
-        </div>
+        {data.map((event, idx) => {
+          return (
+            <a key={event.id + idx} href={`/events/${event.id}`}>
+              <Image
+                alt={event.title}
+                width={200}
+                height={100}
+                src={event.image}
+              />
+              <h2> {event.title} </h2>
+              <p>{event.description}</p>
+            </a>
+          );
+        })}
       </main>
     </>
   );
