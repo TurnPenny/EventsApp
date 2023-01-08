@@ -1,8 +1,14 @@
 import Head from 'next/head';
 import Image from 'next/image';
+import Link from 'next/link';
 import styles from '../styles/Home.module.css';
 
 export default function Home({ data }) {
+  const menuLinks = [
+    { title: 'Home', route: '/' },
+    { title: 'Events', route: '/events' },
+    { title: 'About us', route: '/about-us' },
+  ];
   return (
     <>
       <Head>
@@ -14,17 +20,16 @@ export default function Home({ data }) {
 
       <header>
         <nav>
-          <img src='' alt='' />
-          <a href='/'>Home</a>
-          <a href='/events'>Events</a>
-          <a href='/about-us'>About us</a>
+          {menuLinks.map(({ title, route }) => (
+            <Link href={route}> {title} </Link>
+          ))}
         </nav>
       </header>
 
       <main className={styles.main}>
         {data.map((event, idx) => {
           return (
-            <a key={event.id + idx} href={`/events/${event.id}`}>
+            <Link key={event.id + idx} href={`/events/${event.id}`}>
               <Image
                 alt={event.title}
                 width={200}
@@ -33,7 +38,7 @@ export default function Home({ data }) {
               />
               <h2> {event.title} </h2>
               <p>{event.description}</p>
-            </a>
+            </Link>
           );
         })}
       </main>
