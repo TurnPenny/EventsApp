@@ -1,21 +1,22 @@
 import Image from 'next/image';
+import Link from 'next/link';
 
 const EventsPage = ({ data }) => {
   return (
     <div>
       <h2>Events Page</h2>
       <div>
-        {data.map((event, idx) => {
-          <a key={event.id + idx} href={`/events/${event.id}`}>
+        {data.map((event, idx) => (
+          <Link key={event.id + idx} href={`/events/${event.id}`}>
             <Image
               alt={event.title}
               src={event.image}
-              widt={200}
+              width={200}
               height={150}
             />
             <h2>{event.title}</h2>
-          </a>;
-        })}
+          </Link>
+        ))}
       </div>
     </div>
   );

@@ -1,12 +1,26 @@
-const CityEventsPage = () => {
+import Image from 'next/image';
+import Link from 'next/link';
+
+const CityEventsPage = ({ data, id }) => {
   return (
     <div>
-      <h2>events in london</h2>
+      <h2>events in {id} </h2>
       <div>
-        <a href='#'>Event #</a>
-        <a href='#'>Event #</a>
-        <a href='#'>Event #</a>
-        <a href='#'>Event #</a>
+        {data.map((event, idx) => (
+          <Link
+            key={event.description + idx}
+            href={`/events/${event.city}/${event.id}`}
+          >
+            <Image
+              alt={event.title}
+              src={event.image}
+              width={200}
+              height={150}
+            />
+            <h2>{event.title}</h2>
+            <p>{event.description}</p>
+          </Link>
+        ))}
       </div>
     </div>
   );
@@ -26,7 +40,7 @@ export async function getStaticPaths() {
 
   return {
     paths: allPaths,
-    fallback: true,
+    fallback: false,
   };
 }
 
@@ -39,6 +53,7 @@ export async function getStaticProps(context) {
   return {
     props: {
       data,
+      id,
     },
   };
 }
